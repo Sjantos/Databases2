@@ -4,7 +4,7 @@ import bd2.DBConnect;
 import javax.swing.JFrame;
 import net.proteanit.sql.DbUtils;
 
-public class JFrameManager extends javax.swing.JFrame {
+public class JFrameSeller extends javax.swing.JFrame {
     JFrame frame;
     DBConnect connect;
     int loggedEmployeeID;
@@ -13,7 +13,7 @@ public class JFrameManager extends javax.swing.JFrame {
      * @param con
      * @param employeeID
      */
-    public JFrameManager(DBConnect con, int employeeID) {
+    public JFrameSeller(DBConnect con, int employeeID) {
         initComponents();
         frame = this;
         connect = con;
@@ -32,17 +32,10 @@ public class JFrameManager extends javax.swing.JFrame {
 
         panelOptions = new javax.swing.JPanel();
         buttonSearch = new javax.swing.JButton();
-        buttonEdit = new javax.swing.JButton();
-        buttonChangeQuantity = new javax.swing.JButton();
-        buttonMakeWarehouseOrder = new javax.swing.JButton();
-        buttonCancelWarehouseOrder = new javax.swing.JButton();
         buttonMakeClientOrder = new javax.swing.JButton();
         buttonCancelClientOrder = new javax.swing.JButton();
-        buttonAddProvider = new javax.swing.JButton();
         buttonAddClient = new javax.swing.JButton();
-        buttonAddWorker = new javax.swing.JButton();
-        buttonAddDrink = new javax.swing.JButton();
-        buttonDeleteDrink = new javax.swing.JButton();
+        buttonEdit = new javax.swing.JButton();
         panelViews = new javax.swing.JPanel();
         buttonClientOrders = new javax.swing.JButton();
         buttonWarehouseOrders = new javax.swing.JButton();
@@ -55,7 +48,7 @@ public class JFrameManager extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.BorderLayout());
 
-        panelOptions.setLayout(new java.awt.GridLayout(12, 0));
+        panelOptions.setLayout(new java.awt.GridLayout(5, 0));
 
         buttonSearch.setText("Wyszukaj");
         buttonSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -65,38 +58,17 @@ public class JFrameManager extends javax.swing.JFrame {
         });
         panelOptions.add(buttonSearch);
 
-        buttonEdit.setText("Edytuj");
-        panelOptions.add(buttonEdit);
-
-        buttonChangeQuantity.setText("Zmień ilość produktu");
-        panelOptions.add(buttonChangeQuantity);
-
-        buttonMakeWarehouseOrder.setText("Złóż zamówienie hurtowni");
-        panelOptions.add(buttonMakeWarehouseOrder);
-
-        buttonCancelWarehouseOrder.setText("Anuluj zamówienie hurtowni");
-        panelOptions.add(buttonCancelWarehouseOrder);
-
         buttonMakeClientOrder.setText("Złóż zamówienie klienta");
         panelOptions.add(buttonMakeClientOrder);
 
         buttonCancelClientOrder.setText("Anuluj zamówienie klienta");
         panelOptions.add(buttonCancelClientOrder);
 
-        buttonAddProvider.setText("Dodaj dostawcę");
-        panelOptions.add(buttonAddProvider);
-
         buttonAddClient.setText("Dodaj klienta");
         panelOptions.add(buttonAddClient);
 
-        buttonAddWorker.setText("Dodaj pracownika");
-        panelOptions.add(buttonAddWorker);
-
-        buttonAddDrink.setText("Dodaj napój");
-        panelOptions.add(buttonAddDrink);
-
-        buttonDeleteDrink.setText("Usun napój");
-        panelOptions.add(buttonDeleteDrink);
+        buttonEdit.setText("Edytuj");
+        panelOptions.add(buttonEdit);
 
         getContentPane().add(panelOptions, java.awt.BorderLayout.LINE_START);
 
@@ -190,19 +162,12 @@ public class JFrameManager extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddClient;
-    private javax.swing.JButton buttonAddDrink;
-    private javax.swing.JButton buttonAddProvider;
-    private javax.swing.JButton buttonAddWorker;
     private javax.swing.JButton buttonCancelClientOrder;
-    private javax.swing.JButton buttonCancelWarehouseOrder;
-    private javax.swing.JButton buttonChangeQuantity;
     private javax.swing.JButton buttonClientOrders;
     private javax.swing.JButton buttonClients;
-    private javax.swing.JButton buttonDeleteDrink;
     private javax.swing.JButton buttonDrinks;
     private javax.swing.JButton buttonEdit;
     private javax.swing.JButton buttonMakeClientOrder;
-    private javax.swing.JButton buttonMakeWarehouseOrder;
     private javax.swing.JButton buttonProviders;
     private javax.swing.JButton buttonSearch;
     private javax.swing.JButton buttonWarehouseOrders;

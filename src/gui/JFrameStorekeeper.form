@@ -32,7 +32,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
         <Property name="columns" type="int" value="0"/>
-        <Property name="rows" type="int" value="12"/>
+        <Property name="rows" type="int" value="4"/>
       </Layout>
       <SubComponents>
         <Component class="javax.swing.JButton" name="buttonSearch">
@@ -42,11 +42,6 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSearchActionPerformed"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="buttonEdit">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Edytuj"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="buttonChangeQuantity">
           <Properties>
@@ -61,41 +56,6 @@
         <Component class="javax.swing.JButton" name="buttonCancelWarehouseOrder">
           <Properties>
             <Property name="text" type="java.lang.String" value="Anuluj zam&#xf3;wienie hurtowni"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="buttonMakeClientOrder">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Z&#x142;&#xf3;&#x17c; zam&#xf3;wienie klienta"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="buttonCancelClientOrder">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Anuluj zam&#xf3;wienie klienta"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="buttonAddProvider">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Dodaj dostawc&#x119;"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="buttonAddClient">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Dodaj klienta"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="buttonAddWorker">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Dodaj pracownika"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="buttonAddDrink">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Dodaj nap&#xf3;j"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="buttonDeleteDrink">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Usun nap&#xf3;j"/>
           </Properties>
         </Component>
       </SubComponents>

@@ -48,6 +48,46 @@ public class DBConnect {
             }
             return null;
         }
+        
+        public ResultSet ShowWarehouseOrders()
+        {
+           try {
+                return st.executeQuery("SELECT * FROM zamowieniahurtowni;");
+            } catch (SQLException ex) {
+                Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return null; 
+        }
+        
+        public ResultSet ShowAllDrinks()
+        {
+           try {
+                return st.executeQuery("SELECT * FROM napoje;");
+            } catch (SQLException ex) {
+                Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return null; 
+        }
+        
+        public ResultSet ShowAllClients()
+        {
+           try {
+                return st.executeQuery("SELECT * FROM klienci;");
+            } catch (SQLException ex) {
+                Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return null; 
+        }
+        
+        public ResultSet ShowAllProviders()
+        {
+           try {
+                return st.executeQuery("SELECT * FROM dostawcy;");
+            } catch (SQLException ex) {
+                Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return null; 
+        }
 	
 	private byte[] toBytes(char[] chars) {
 	    CharBuffer charBuffer = CharBuffer.wrap(chars);

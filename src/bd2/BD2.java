@@ -7,6 +7,8 @@ package bd2;
 
 import gui.JDialogLogin;
 import gui.JFrameManager;
+import gui.JFrameSeller;
+import gui.JFrameStorekeeper;
 import static java.lang.System.exit;
 import javax.swing.JFrame;
 
@@ -39,14 +41,16 @@ public class BD2 {
         switch(loggedEmployee)
         {
             case 1:
-                JFrameManager mainFrame = new JFrameManager(connect, loggedEmployee);
-                mainFrame.setVisible(true);
+                JFrameManager managerFrame = new JFrameManager(connect, loggedEmployee);
+                managerFrame.setVisible(true);
                 break;
             case 2:
-                
+                JFrameSeller sellerFrame = new JFrameSeller(connect, loggedEmployee);
+                sellerFrame.setVisible(true);
                 break;
             case 3:
-                
+                JFrameStorekeeper storekeeperFrame = new JFrameStorekeeper(connect, loggedEmployee);
+                storekeeperFrame.setVisible(true);
                 break;
             default:
                 exit(0);
