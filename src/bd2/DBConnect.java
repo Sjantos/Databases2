@@ -32,7 +32,7 @@ public class DBConnect {
 	{
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/hurtownia1", "root", "");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/warehouse", "root", "");
 			st = con.createStatement();
 		} catch (Exception e) {
 			System.out.println(e);
@@ -42,7 +42,7 @@ public class DBConnect {
         public ResultSet ShowClientOrders()
         {
             try {
-                return st.executeQuery("SELECT * FROM zamowieniaklientow;");
+                return st.executeQuery("SELECT * FROM clientOrders;");
             } catch (SQLException ex) {
                 Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -52,7 +52,7 @@ public class DBConnect {
         public ResultSet ShowWarehouseOrders()
         {
            try {
-                return st.executeQuery("SELECT * FROM zamowieniahurtowni;");
+                return st.executeQuery("SELECT * FROM warehouseOrders;");
             } catch (SQLException ex) {
                 Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -62,7 +62,7 @@ public class DBConnect {
         public ResultSet ShowAllDrinks()
         {
            try {
-                return st.executeQuery("SELECT * FROM napoje;");
+                return st.executeQuery("SELECT * FROM drinks;");
             } catch (SQLException ex) {
                 Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -72,7 +72,7 @@ public class DBConnect {
         public ResultSet ShowAllClients()
         {
            try {
-                return st.executeQuery("SELECT * FROM klienci;");
+                return st.executeQuery("SELECT * FROM clients;");
             } catch (SQLException ex) {
                 Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -82,7 +82,7 @@ public class DBConnect {
         public ResultSet ShowAllProviders()
         {
            try {
-                return st.executeQuery("SELECT * FROM dostawcy;");
+                return st.executeQuery("SELECT * FROM providers;");
             } catch (SQLException ex) {
                 Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -128,14 +128,12 @@ public class DBConnect {
 
 		
 		try {
-			String query = "SELECT ID_pracownika, login, haslo FROM pracownicy";
+			String query = "SELECT ID_employee, login, password FROM employees";
 			rs = st.executeQuery(query);
 			LinkedList<Triple<String, String, String>> workers = new LinkedList<Triple<String, String, String>>();
 			while(rs.next())
 			{
-				Triple<String, String, String> t = new Triple<String, String, String>(	rs.getString("ID_pracownika"), 
-																						rs.getString("login"), 
-																						rs.getString("haslo"));
+				Triple<String, String, String> t = new Triple<String, String, String>(	rs.getString("ID_employee"), rs.getString("login"), rs.getString("password"));
 				workers.add(t);
 			}
 			String id = "";
