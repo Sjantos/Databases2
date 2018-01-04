@@ -97,12 +97,22 @@ public class JFrameManager extends javax.swing.JFrame {
         panelOptions.add(buttonChangeQuantity);
 
         buttonMakeWarehouseOrder.setText("Złóż zamówienie hurtowni");
+        buttonMakeWarehouseOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonMakeWarehouseOrderActionPerformed(evt);
+            }
+        });
         panelOptions.add(buttonMakeWarehouseOrder);
 
         buttonCancelWarehouseOrder.setText("Anuluj zamówienie hurtowni");
         panelOptions.add(buttonCancelWarehouseOrder);
 
         buttonMakeClientOrder.setText("Złóż zamówienie klienta");
+        buttonMakeClientOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonMakeClientOrderActionPerformed(evt);
+            }
+        });
         panelOptions.add(buttonMakeClientOrder);
 
         buttonCancelClientOrder.setText("Anuluj zamówienie klienta");
@@ -296,6 +306,20 @@ public class JFrameManager extends javax.swing.JFrame {
         ChangeamountofDrinkFrame.setVisible(true);
         System.out.println(ChangeamountofDrinkFrame.isVisible());
     }//GEN-LAST:event_buttonChangeQuantityActionPerformed
+
+    private void buttonMakeClientOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMakeClientOrderActionPerformed
+        // TODO add your handling code here:
+        JFrameMakeClientOrder makeClientOrderFrame = new JFrameMakeClientOrder(connect, loggedEmployeeID);
+        
+        makeClientOrderFrame.setVisible(true);
+    }//GEN-LAST:event_buttonMakeClientOrderActionPerformed
+
+    private void buttonMakeWarehouseOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMakeWarehouseOrderActionPerformed
+        // TODO add your handling code here:
+        JFrameMakeWarehouseOrder makeWarehouseOrderFrame = new JFrameMakeWarehouseOrder(connect, loggedEmployeeID);
+        
+        makeWarehouseOrderFrame.setVisible(true);
+    }//GEN-LAST:event_buttonMakeWarehouseOrderActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -75,6 +75,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Z&#x142;&#xf3;&#x17c; zam&#xf3;wienie hurtowni"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonMakeWarehouseOrderActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="buttonCancelWarehouseOrder">
           <Properties>
@@ -85,6 +88,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Z&#x142;&#xf3;&#x17c; zam&#xf3;wienie klienta"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonMakeClientOrderActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="buttonCancelClientOrder">
           <Properties>

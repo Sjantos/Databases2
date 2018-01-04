@@ -41,6 +41,21 @@ public class DBConnect {
 		}
 	}
         
+        public int GetPrivileges(int employeeID)
+        {
+            int returnInt = -1;int i = -10;String s = "NULL";
+            try {
+                rs = st.executeQuery("SELECT * FROM employees WHERE "+employeeID+" = ID_employee");
+                s = "OK";
+                rs.next();
+                returnInt = rs.getInt(10);
+//                returnInt = Integer.parseInt(rs.getString("ID_position"));
+            } catch (Exception e) {
+                Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, e);
+            }
+            return returnInt;
+        }
+        
         public ResultSet ShowClientOrders()
         {
             try {
@@ -108,6 +123,36 @@ public class DBConnect {
 	    Arrays.fill(byteBuffer.array(), (byte) 0); // clear sensitive data
 	    return bytes;
 	}
+        
+        public String HashLogin(String login)
+        {
+            byte[] loginBytes = login.getBytes();
+		String loginHashValue = "";
+		try {
+			MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");
+			messageDigest.update(loginBytes);
+			byte[] digestedBytes = messageDigest.digest();
+			loginHashValue = DatatypeConverter.printHexBinary(digestedBytes).toLowerCase();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+                return loginHashValue;
+        }
+        
+        public String HashPassword(char[] password)
+        {
+            byte[] passwordBytes = toBytes(password);
+		String passwordHashValue = "";
+		try {
+			MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");
+			messageDigest.update(passwordBytes);
+			byte[] digestedBytes = messageDigest.digest();
+			passwordHashValue = DatatypeConverter.printHexBinary(digestedBytes).toLowerCase();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+                return passwordHashValue;
+        }
 	
 	public int Login(String login, char[] password)
 	{

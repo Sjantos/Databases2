@@ -10,6 +10,7 @@ import java.awt.GridLayout;
 import java.awt.Label;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
@@ -39,6 +40,7 @@ public class JFrameSearch extends javax.swing.JFrame {
         initComponents();
         connect = con;
         parent = frame;
+        this.table = table;
         tableSelectedName = tName;
         int numberOfColumns = table.getColumnCount();
         panelSearchOptions.setLayout(new GridLayout(2*numberOfColumns, 1, 4, 4));
@@ -83,39 +85,35 @@ public class JFrameSearch extends javax.swing.JFrame {
         LinkedList<String> arguments = new LinkedList<String>();
         for (int i = 0; i < textFields.size(); i++) {
             String text = textFields.get(i).getText();
-            if(text.equals(""))
-                text = "%";
+            text = text + "%";
             arguments.add(text);
-            System.out.println(text);
         }
+        
         
         Connection con = connect.getConnection();
         LinkedList<String> columnNames = new LinkedList<String>();
         for (int i = 0; i < table.getColumnCount(); i++) {
             columnNames.add(table.getColumnName(i));
         }
-        //StringBuilder call = new StringBuilder("{call TU WSTAWIĆ PROCEDURE(");
-        //SELECT * FROM clients WHERE (city LIKE '%') AND (clientName LIKE '%')
-        StringBuilder call = new StringBuilder("{SELECT * FROM "+tableSelectedName+" WHERE ");
-        for (int i = 0; i < arguments.size(); i++) {
-            call.append("(");
-            call.append()
+
+        StringBuilder call = new StringBuilder("SELECT * FROM "+tableSelectedName+" WHERE ");
+        call.append("(IFNULL((CONCAT(" + columnNames.get(0) + ", '')), '') LIKE '" + arguments.get(0) + "')");
+        for (int i = 1; i < arguments.size(); i++) {
+            call.append(" AND (IFNULL((CONCAT(" + columnNames.get(i) + ", '')), '') LIKE '" + arguments.get(i) + "')");
         }
-        call.append(")}");
+        call.append(";");
         
         CallableStatement myStmt = null;
         try{
         myStmt = con.prepareCall(call.toString());
-            for (int i = 0; i < arguments.size(); i++) {
-                myStmt.setString(i, arguments.get(i));
-            }
         myStmt.execute();
         } catch (SQLException ex) {
                 Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         try{
-        table.setModel(DbUtils.resultSetToTableModel(myStmt.getResultSet()));
+            ResultSet result = myStmt.getResultSet();
+            table.setModel(DbUtils.resultSetToTableModel(result));
         } catch (SQLException ex) {
                 Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
         }
