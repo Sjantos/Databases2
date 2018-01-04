@@ -70,7 +70,6 @@ CREATE TABLE warehouse.drinks(
 CREATE TABLE warehouse.clientOrders(
     ID_clientOrder MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     fillingDate DATE NOT NULL,
-    paymentDate DATE NOT NULL,
     ID_orderState MEDIUMINT UNSIGNED NOT NULL,
     ID_client MEDIUMINT UNSIGNED NOT NULL,
     ID_employee MEDIUMINT UNSIGNED NOT NULL);
@@ -92,7 +91,6 @@ alter table warehouse.clientOrderedDrinks add FOREIGN key (ID_drink) REFERENCES 
 CREATE TABLE warehouse.warehouseOrders(
     ID_warehouseOrder MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     fillingDate DATE NOT NULL,
-    paymentDate DATE NOT NULL,
     automaticOrder BOOLEAN NOT NULL,
     ID_orderState MEDIUMINT UNSIGNED NOT NULL,
     ID_provider MEDIUMINT UNSIGNED NOT NULL,
@@ -216,25 +214,23 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE MakeClientOrder(
     IN fillingDate DATE,
-    IN paymentDate DATE,
     IN ID_orderState MEDIUMINT UNSIGNED,
     IN ID_client MEDIUMINT UNSIGNED,
     IN ID_employee MEDIUMINT UNSIGNED)
 BEGIN
-INSERT INTO `warehouse`.`clientOrders` (`ID_clientOrder`, `fillingDate`, `paymentDate`, `ID_orderState`, `ID_client`, `ID_employee`) VALUES (NULL, fillingDate, paymentDate, ID_orderState, ID_client, ID_employee);
+INSERT INTO `warehouse`.`clientOrders` (`ID_clientOrder`, `fillingDate`, `ID_orderState`, `ID_client`, `ID_employee`) VALUES (NULL, fillingDate, ID_orderState, ID_client, ID_employee);
 END //
 DELIMITER ;
 
 DELIMITER //
 CREATE PROCEDURE MakeWarehouseOrder(
     IN fillingDate DATE,
-    IN paymentDate DATE,
     IN automaticOrder BOOLEAN,
     IN ID_orderState MEDIUMINT UNSIGNED,
     IN ID_provider MEDIUMINT UNSIGNED,
     IN ID_employee MEDIUMINT UNSIGNED)
 BEGIN
-INSERT INTO `warehouse`.`warehouseOrders` (`ID_clientOrder`, `fillingDate`, `paymentDate`, `automaticOrder`, `ID_orderState`, `ID_provider`, `ID_employee`) VALUES (NULL, fillingDate, paymentDate, automaticOrder, ID_orderState, ID_provider, ID_employee);
+INSERT INTO `warehouse`.`warehouseOrders` (`ID_warehouseOrder`, `fillingDate`, `automaticOrder`, `ID_orderState`, `ID_provider`, `ID_employee`) VALUES (NULL, fillingDate, automaticOrder, ID_orderState, ID_provider, ID_employee);
 END //
 DELIMITER ;
 
@@ -493,7 +489,7 @@ INSERT INTO tmp (tmpID, productName, quantity, rowValue)
                             
 
 SELECT *
-FROM		(SELECT fillingDate, paymentDate FROM warehouse.clientOrders 
+FROM		(SELECT fillingDate FROM warehouse.clientOrders 
      			WHERE id = ID_clientOrder) AS T1
                 
 NATURAL JOIN(SELECT clientName, nip, street, city FROM warehouse.clients
@@ -553,3 +549,5 @@ SELECT * FROM
 		
 END //
 DELIMITER ;
+
+
