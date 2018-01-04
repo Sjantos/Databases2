@@ -13,6 +13,8 @@ import javax.xml.bind.DatatypeConverter;
 
 
 public class DBConnect {
+
+
 	private class Triple<X, Y, Z> { 
 		  public final X x; 
 		  public final Y y; 
@@ -89,6 +91,14 @@ public class DBConnect {
             return null; 
         }
 	
+        public Connection getConnection()
+        {
+            return con;
+        }
+        public Statement getStatement()
+        {
+            return st;
+        }
 	private byte[] toBytes(char[] chars) {
 	    CharBuffer charBuffer = CharBuffer.wrap(chars);
 	    ByteBuffer byteBuffer = Charset.forName("UTF-8").encode(charBuffer);

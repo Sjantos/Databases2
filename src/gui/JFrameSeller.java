@@ -46,7 +46,6 @@ public class JFrameSeller extends javax.swing.JFrame {
         table = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.BorderLayout());
 
         panelOptions.setLayout(new java.awt.GridLayout(5, 0));
 

@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.JButton" name="jButton2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jButton2"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButton1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jButton1"/>
+      </Properties>
+    </Component>
+  </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
   </Properties>
@@ -18,7 +30,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,1,81,0,0,2,75"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,86,0,0,2,-11"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
@@ -47,11 +59,17 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Edytuj"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonEditActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="buttonChangeQuantity">
           <Properties>
             <Property name="text" type="java.lang.String" value="Zmie&#x144; ilo&#x15b;&#x107; produktu"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonChangeQuantityActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="buttonMakeWarehouseOrder">
           <Properties>
@@ -73,30 +91,45 @@
             <Property name="text" type="java.lang.String" value="Anuluj zam&#xf3;wienie klienta"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="buttonAddProvider">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Dodaj dostawc&#x119;"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JButton" name="buttonAddClient">
           <Properties>
             <Property name="text" type="java.lang.String" value="Dodaj klienta"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAddClientActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="buttonAddWorker">
           <Properties>
             <Property name="text" type="java.lang.String" value="Dodaj pracownika"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAddWorkerActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="buttonAddDrink">
           <Properties>
             <Property name="text" type="java.lang.String" value="Dodaj nap&#xf3;j"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAddDrinkActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="buttonDeleteDrink">
           <Properties>
             <Property name="text" type="java.lang.String" value="Usun nap&#xf3;j"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonDeleteDrinkActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="buttonAddProvider">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Dodaj dostawc&#x119;"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAddProviderActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

@@ -1,6 +1,7 @@
 package gui;
 
 import bd2.DBConnect;
+import java.sql.Connection;
 import javax.swing.JFrame;
 import net.proteanit.sql.DbUtils;
 
@@ -30,6 +31,8 @@ public class JFrameManager extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         panelOptions = new javax.swing.JPanel();
         buttonSearch = new javax.swing.JButton();
         buttonEdit = new javax.swing.JButton();
@@ -38,11 +41,11 @@ public class JFrameManager extends javax.swing.JFrame {
         buttonCancelWarehouseOrder = new javax.swing.JButton();
         buttonMakeClientOrder = new javax.swing.JButton();
         buttonCancelClientOrder = new javax.swing.JButton();
-        buttonAddProvider = new javax.swing.JButton();
         buttonAddClient = new javax.swing.JButton();
         buttonAddWorker = new javax.swing.JButton();
         buttonAddDrink = new javax.swing.JButton();
         buttonDeleteDrink = new javax.swing.JButton();
+        buttonAddProvider = new javax.swing.JButton();
         panelViews = new javax.swing.JPanel();
         buttonClientOrders = new javax.swing.JButton();
         buttonWarehouseOrders = new javax.swing.JButton();
@@ -52,8 +55,11 @@ public class JFrameManager extends javax.swing.JFrame {
         scrollpanel = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
 
+        jButton2.setText("jButton2");
+
+        jButton1.setText("jButton1");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.BorderLayout());
 
         panelOptions.setLayout(new java.awt.GridLayout(12, 0));
 
@@ -66,9 +72,19 @@ public class JFrameManager extends javax.swing.JFrame {
         panelOptions.add(buttonSearch);
 
         buttonEdit.setText("Edytuj");
+        buttonEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEditActionPerformed(evt);
+            }
+        });
         panelOptions.add(buttonEdit);
 
         buttonChangeQuantity.setText("Zmień ilość produktu");
+        buttonChangeQuantity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonChangeQuantityActionPerformed(evt);
+            }
+        });
         panelOptions.add(buttonChangeQuantity);
 
         buttonMakeWarehouseOrder.setText("Złóż zamówienie hurtowni");
@@ -83,20 +99,45 @@ public class JFrameManager extends javax.swing.JFrame {
         buttonCancelClientOrder.setText("Anuluj zamówienie klienta");
         panelOptions.add(buttonCancelClientOrder);
 
-        buttonAddProvider.setText("Dodaj dostawcę");
-        panelOptions.add(buttonAddProvider);
-
         buttonAddClient.setText("Dodaj klienta");
+        buttonAddClient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAddClientActionPerformed(evt);
+            }
+        });
         panelOptions.add(buttonAddClient);
 
         buttonAddWorker.setText("Dodaj pracownika");
+        buttonAddWorker.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAddWorkerActionPerformed(evt);
+            }
+        });
         panelOptions.add(buttonAddWorker);
 
         buttonAddDrink.setText("Dodaj napój");
+        buttonAddDrink.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAddDrinkActionPerformed(evt);
+            }
+        });
         panelOptions.add(buttonAddDrink);
 
         buttonDeleteDrink.setText("Usun napój");
+        buttonDeleteDrink.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonDeleteDrinkActionPerformed(evt);
+            }
+        });
         panelOptions.add(buttonDeleteDrink);
+
+        buttonAddProvider.setText("Dodaj dostawcę");
+        buttonAddProvider.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAddProviderActionPerformed(evt);
+            }
+        });
+        panelOptions.add(buttonAddProvider);
 
         getContentPane().add(panelOptions, java.awt.BorderLayout.LINE_START);
 
@@ -187,6 +228,61 @@ public class JFrameManager extends javax.swing.JFrame {
         table.setModel(DbUtils.resultSetToTableModel(connect.ShowAllProviders()));
     }//GEN-LAST:event_buttonProvidersActionPerformed
 
+    private void buttonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditActionPerformed
+        // TODO add your handling code here:
+        JFrameEditManager EditManagerFrame = new JFrameEditManager(connect);
+        
+        EditManagerFrame.setVisible(true);
+        System.out.println(EditManagerFrame.isVisible());
+    }//GEN-LAST:event_buttonEditActionPerformed
+
+    private void buttonAddProviderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddProviderActionPerformed
+         JFrameAddProvider AddProviderFrame = new JFrameAddProvider(connect);
+        
+        AddProviderFrame.setVisible(true);
+        System.out.println(AddProviderFrame.isVisible());
+    }//GEN-LAST:event_buttonAddProviderActionPerformed
+
+    private void buttonAddClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddClientActionPerformed
+        // TODO add your handling code here:
+        JFrameAddClient AddClientFrame = new JFrameAddClient(connect);
+        
+        AddClientFrame.setVisible(true);
+        System.out.println(AddClientFrame.isVisible());
+    }//GEN-LAST:event_buttonAddClientActionPerformed
+
+    private void buttonAddDrinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddDrinkActionPerformed
+        // TODO add your handling code here:
+        JFrameAddDrink AddDrinkFrame = new JFrameAddDrink(connect);
+        
+        AddDrinkFrame.setVisible(true);
+        System.out.println(AddDrinkFrame.isVisible());
+    }//GEN-LAST:event_buttonAddDrinkActionPerformed
+
+    private void buttonAddWorkerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddWorkerActionPerformed
+        // TODO add your handling code here:
+        JFrameAddWorker AddWorkerFrame = new JFrameAddWorker(connect);
+        
+        AddWorkerFrame.setVisible(true);
+        System.out.println(AddWorkerFrame.isVisible());
+    }//GEN-LAST:event_buttonAddWorkerActionPerformed
+
+    private void buttonDeleteDrinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteDrinkActionPerformed
+        // TODO add your handling code here:
+        JFrameDeleteDrink DeleteDrinkFrame = new JFrameDeleteDrink(connect);
+        
+        DeleteDrinkFrame.setVisible(true);
+        System.out.println(DeleteDrinkFrame.isVisible());
+    }//GEN-LAST:event_buttonDeleteDrinkActionPerformed
+
+    private void buttonChangeQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChangeQuantityActionPerformed
+        // TODO add your handling code here:
+        JFrameChangeamountOfDrink ChangeamountofDrinkFrame = new JFrameChangeamountOfDrink(connect);
+        
+        ChangeamountofDrinkFrame.setVisible(true);
+        System.out.println(ChangeamountofDrinkFrame.isVisible());
+    }//GEN-LAST:event_buttonChangeQuantityActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddClient;
@@ -206,6 +302,8 @@ public class JFrameManager extends javax.swing.JFrame {
     private javax.swing.JButton buttonProviders;
     private javax.swing.JButton buttonSearch;
     private javax.swing.JButton buttonWarehouseOrders;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JPanel panelOptions;
     private javax.swing.JPanel panelViews;
     private javax.swing.JScrollPane scrollpanel;
