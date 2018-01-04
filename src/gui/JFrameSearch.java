@@ -5,27 +5,41 @@
  */
 package gui;
 
+import bd2.DBConnect;
 import java.awt.GridLayout;
 import java.awt.Label;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import net.proteanit.sql.DbUtils;
 
 /**
  *
  * @author Jantos
  */
 public class JFrameSearch extends javax.swing.JFrame {
+    DBConnect connect;
     JTable table;
     LinkedList<JTextField> textFields;
     JFrame parent;
+    String tableSelectedName;
     /**
      * Creates new form JFrameSearch
      */
-    public JFrameSearch(JTable table, JFrame frame) {
+    public JFrameSearch(JTable table, JFrame frame, String tName, DBConnect con) {
         initComponents();
+        connect = con;
         parent = frame;
+        tableSelectedName = tName;
         int numberOfColumns = table.getColumnCount();
         panelSearchOptions.setLayout(new GridLayout(2*numberOfColumns, 1, 4, 4));
         textFields = new LinkedList<JTextField>();
@@ -41,6 +55,70 @@ public class JFrameSearch extends javax.swing.JFrame {
             }
         }
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        
+        int textFieldsSize = textFields.size();
+        for(int i=0; i < textFieldsSize; i++)
+        {
+            textFields.get(i).getDocument().addDocumentListener(new DocumentListener() {
+                @Override
+                public void insertUpdate(DocumentEvent e) {
+                    UpdateSearch();
+                }
+
+                @Override
+                public void removeUpdate(DocumentEvent e) {
+                    UpdateSearch();
+                }
+
+                @Override
+                public void changedUpdate(DocumentEvent e) {
+                    UpdateSearch();
+                }
+            });
+        }
+    }
+    
+    private void UpdateSearch()
+    {
+        LinkedList<String> arguments = new LinkedList<String>();
+        for (int i = 0; i < textFields.size(); i++) {
+            String text = textFields.get(i).getText();
+            if(text.equals(""))
+                text = "%";
+            arguments.add(text);
+            System.out.println(text);
+        }
+        
+        Connection con = connect.getConnection();
+        LinkedList<String> columnNames = new LinkedList<String>();
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            columnNames.add(table.getColumnName(i));
+        }
+        //StringBuilder call = new StringBuilder("{call TU WSTAWIĆ PROCEDURE(");
+        //SELECT * FROM clients WHERE (city LIKE '%') AND (clientName LIKE '%')
+        StringBuilder call = new StringBuilder("{SELECT * FROM "+tableSelectedName+" WHERE ");
+        for (int i = 0; i < arguments.size(); i++) {
+            call.append("(");
+            call.append()
+        }
+        call.append(")}");
+        
+        CallableStatement myStmt = null;
+        try{
+        myStmt = con.prepareCall(call.toString());
+            for (int i = 0; i < arguments.size(); i++) {
+                myStmt.setString(i, arguments.get(i));
+            }
+        myStmt.execute();
+        } catch (SQLException ex) {
+                Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try{
+        table.setModel(DbUtils.resultSetToTableModel(myStmt.getResultSet()));
+        } catch (SQLException ex) {
+                Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

@@ -3,12 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Lapszo/Desktop/Databases2NetBeans-master/src/gui/JFrameEditDrink.java</file>
-            <file>file:/C:/Users/Lapszo/Desktop/Databases2NetBeans-master/src/gui/JFrameAddDrink.java</file>
-            <file>file:/C:/Users/Lapszo/Desktop/Databases2NetBeans-master/src/bd2/BD2.java</file>
-            <file>file:/C:/Users/Lapszo/Desktop/Databases2NetBeans-master/src/gui/JFrameEditManager.java</file>
-            <file>file:/C:/Users/Lapszo/Desktop/Databases2NetBeans-master/src/gui/JFrameAddProvider.java</file>
-            <file>file:/C:/Users/Lapszo/Desktop/Databases2NetBeans-master/src/gui/JFrameEditClient.java</file>
+            <file>file:/D:/NetBeansProjects/BD2/src/bd2/DBConnect.java</file>
+            <file>file:/D:/NetBeansProjects/BD2/src/gui/JFrameAddDrink.java</file>
+            <file>file:/D:/NetBeansProjects/BD2/src/gui/JFrameManager.java</file>
+            <file>file:/D:/NetBeansProjects/BD2/src/bd2/BD2.java</file>
+            <file>file:/D:/NetBeansProjects/BD2/src/gui/JFrameSearch.java</file>
         </group>
     </open-files>
 </project-private>

@@ -2,6 +2,7 @@ package gui;
 
 import bd2.DBConnect;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import javax.swing.JFrame;
 import net.proteanit.sql.DbUtils;
 
@@ -9,6 +10,7 @@ public class JFrameManager extends javax.swing.JFrame {
     JFrame frame;
     DBConnect connect;
     int loggedEmployeeID;
+    String tableSelectedName;
     /**
      * Creates new form JFrameManager
      * @param con
@@ -19,7 +21,14 @@ public class JFrameManager extends javax.swing.JFrame {
         frame = this;
         connect = con;
         loggedEmployeeID = employeeID;
-        table.setModel(DbUtils.resultSetToTableModel(connect.ShowClientOrders()));
+        tableSelectedName = "clientOrders";
+        //table.setModel(DbUtils.resultSetToTableModel(connect.ShowClientOrders()));
+        UpdateView(connect.ShowClientOrders());
+    }
+    
+    public void UpdateView(ResultSet result)
+    {
+        table.setModel(DbUtils.resultSetToTableModel(result));
     }
 
     /**
@@ -203,10 +212,11 @@ public class JFrameManager extends javax.swing.JFrame {
 
     private void buttonClientOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonClientOrdersActionPerformed
         table.setModel(DbUtils.resultSetToTableModel(connect.ShowClientOrders()));
+        tableSelectedName = "clientOrders";
     }//GEN-LAST:event_buttonClientOrdersActionPerformed
 
     private void buttonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSearchActionPerformed
-        JFrameSearch searchFrame = new JFrameSearch(table, frame);
+        JFrameSearch searchFrame = new JFrameSearch(table, frame, tableSelectedName, connect);
         
         searchFrame.setVisible(true);
         System.out.println(searchFrame.isVisible());
@@ -214,18 +224,22 @@ public class JFrameManager extends javax.swing.JFrame {
 
     private void buttonDrinksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDrinksActionPerformed
         table.setModel(DbUtils.resultSetToTableModel(connect.ShowAllDrinks()));
+        tableSelectedName = "drinks";
     }//GEN-LAST:event_buttonDrinksActionPerformed
 
     private void buttonWarehouseOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonWarehouseOrdersActionPerformed
         table.setModel(DbUtils.resultSetToTableModel(connect.ShowWarehouseOrders()));
+        tableSelectedName = "warehouseOrders";
     }//GEN-LAST:event_buttonWarehouseOrdersActionPerformed
 
     private void buttonClientsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonClientsActionPerformed
         table.setModel(DbUtils.resultSetToTableModel(connect.ShowAllClients()));
+        tableSelectedName = "clients";
     }//GEN-LAST:event_buttonClientsActionPerformed
 
     private void buttonProvidersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonProvidersActionPerformed
         table.setModel(DbUtils.resultSetToTableModel(connect.ShowAllProviders()));
+        tableSelectedName = "providers";
     }//GEN-LAST:event_buttonProvidersActionPerformed
 
     private void buttonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditActionPerformed
