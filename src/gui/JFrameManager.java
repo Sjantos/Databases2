@@ -57,10 +57,13 @@ public class JFrameManager extends javax.swing.JFrame {
         buttonAddProvider = new javax.swing.JButton();
         panelViews = new javax.swing.JPanel();
         buttonClientOrders = new javax.swing.JButton();
+        buttonClientOrderedDrinks = new javax.swing.JButton();
+        buttonWarehouseOrderedDrinks = new javax.swing.JButton();
         buttonWarehouseOrders = new javax.swing.JButton();
         buttonClients = new javax.swing.JButton();
         buttonProviders = new javax.swing.JButton();
         buttonDrinks = new javax.swing.JButton();
+        buttonShowWorkers = new javax.swing.JButton();
         scrollpanel = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
 
@@ -178,6 +181,22 @@ public class JFrameManager extends javax.swing.JFrame {
         });
         panelViews.add(buttonClientOrders);
 
+        buttonClientOrderedDrinks.setText("Show client ordered drinks");
+        buttonClientOrderedDrinks.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonClientOrderedDrinksActionPerformed(evt);
+            }
+        });
+        panelViews.add(buttonClientOrderedDrinks);
+
+        buttonWarehouseOrderedDrinks.setText("Show warehouse ordered drinks");
+        buttonWarehouseOrderedDrinks.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonWarehouseOrderedDrinksActionPerformed(evt);
+            }
+        });
+        panelViews.add(buttonWarehouseOrderedDrinks);
+
         buttonWarehouseOrders.setText("Show warehouse orders");
         buttonWarehouseOrders.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -209,6 +228,14 @@ public class JFrameManager extends javax.swing.JFrame {
             }
         });
         panelViews.add(buttonDrinks);
+
+        buttonShowWorkers.setText("Show employees");
+        buttonShowWorkers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonShowWorkersActionPerformed(evt);
+            }
+        });
+        panelViews.add(buttonShowWorkers);
 
         getContentPane().add(panelViews, java.awt.BorderLayout.PAGE_START);
 
@@ -345,6 +372,24 @@ public class JFrameManager extends javax.swing.JFrame {
         cancelClientOrderFrame.setVisible(true);
     }//GEN-LAST:event_buttonCancelClientOrderActionPerformed
 
+    private void buttonShowWorkersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonShowWorkersActionPerformed
+        // TODO add your handling code here:
+        table.setModel(DbUtils.resultSetToTableModel(connect.ShowAllEmployees()));
+        tableSelectedName = "employees";
+    }//GEN-LAST:event_buttonShowWorkersActionPerformed
+
+    private void buttonClientOrderedDrinksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonClientOrderedDrinksActionPerformed
+        // TODO add your handling code here:
+        table.setModel(DbUtils.resultSetToTableModel(connect.ShowAllClientOrderedDrinks()));
+        tableSelectedName = "clientordereddrinks";
+    }//GEN-LAST:event_buttonClientOrderedDrinksActionPerformed
+
+    private void buttonWarehouseOrderedDrinksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonWarehouseOrderedDrinksActionPerformed
+        // TODO add your handling code here:
+        table.setModel(DbUtils.resultSetToTableModel(connect.ShowAllWarehouseOrderedDrinks()));
+        tableSelectedName = "warehouseorderedproducts";
+    }//GEN-LAST:event_buttonWarehouseOrderedDrinksActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddClient;
@@ -354,6 +399,7 @@ public class JFrameManager extends javax.swing.JFrame {
     private javax.swing.JButton buttonCancelClientOrder;
     private javax.swing.JButton buttonCancelWarehouseOrder;
     private javax.swing.JButton buttonChangeQuantity;
+    private javax.swing.JButton buttonClientOrderedDrinks;
     private javax.swing.JButton buttonClientOrders;
     private javax.swing.JButton buttonClients;
     private javax.swing.JButton buttonDeleteDrink;
@@ -363,6 +409,8 @@ public class JFrameManager extends javax.swing.JFrame {
     private javax.swing.JButton buttonMakeWarehouseOrder;
     private javax.swing.JButton buttonProviders;
     private javax.swing.JButton buttonSearch;
+    private javax.swing.JButton buttonShowWorkers;
+    private javax.swing.JButton buttonWarehouseOrderedDrinks;
     private javax.swing.JButton buttonWarehouseOrders;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

@@ -44,7 +44,7 @@ public class JFrameCancelClientOrder extends javax.swing.JFrame {
 
         jLabel1.setText("Client order ID to cancel");
 
-        buttonCancelClientOrder.setText("Cancel");
+        buttonCancelClientOrder.setText("OK");
         buttonCancelClientOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelClientOrderActionPerformed(evt);

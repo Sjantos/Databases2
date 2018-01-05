@@ -44,7 +44,7 @@ public class JFrameCancelWarehouseOrder extends javax.swing.JFrame {
 
         jLabel1.setText("Warehuose order ID to cancel");
 
-        buttonCancelWarehouseOrder.setText("Cancel");
+        buttonCancelWarehouseOrder.setText("OK");
         buttonCancelWarehouseOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelWarehouseOrderActionPerformed(evt);
