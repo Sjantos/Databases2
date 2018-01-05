@@ -25,6 +25,7 @@ public class JFrameCancelClientOrder extends javax.swing.JFrame {
     public JFrameCancelClientOrder(DBConnect con) {
         initComponents();
         connect = con;
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     /**

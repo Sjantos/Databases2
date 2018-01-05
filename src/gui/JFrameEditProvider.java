@@ -32,7 +32,7 @@ public class JFrameEditProvider extends javax.swing.JFrame {
         this.id = id;
         initComponents();
         initBoxes();
-
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
     private void initBoxes()
     {

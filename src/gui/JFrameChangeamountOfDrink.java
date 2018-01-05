@@ -35,6 +35,7 @@ public class JFrameChangeamountOfDrink extends javax.swing.JFrame {
         con = connect.getConnection();
         initComponents();
         initBoxes();
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
     
     

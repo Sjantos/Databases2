@@ -34,6 +34,7 @@ public class JFrameMakeClientOrder extends javax.swing.JFrame {
         initComponents();
         connect = con;
         loggedEmployee = empID;
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     /**

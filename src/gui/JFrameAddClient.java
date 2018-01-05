@@ -27,6 +27,7 @@ public class JFrameAddClient extends javax.swing.JFrame {
     public JFrameAddClient(DBConnect con) {
         initComponents();
         connect = con;
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
     
     /**

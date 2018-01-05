@@ -16,6 +16,7 @@ public class JFrameChooseId extends javax.swing.JFrame {
      */
     public JFrameChooseId() {
         initComponents();
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     /**

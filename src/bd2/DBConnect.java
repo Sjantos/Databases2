@@ -13,8 +13,6 @@ import javax.xml.bind.DatatypeConverter;
 
 
 public class DBConnect {
-
-
 	private class Triple<X, Y, Z> { 
 		  public final X x; 
 		  public final Y y; 
@@ -40,6 +38,21 @@ public class DBConnect {
 			System.out.println(e);
 		}
 	}
+        
+        public int GetPrivileges(int employeeID)
+        {
+            int returnInt = -1;int i = -10;String s = "NULL";
+            try {
+                rs = st.executeQuery("SELECT * FROM employees WHERE "+employeeID+" = ID_employee");
+                s = "OK";
+                rs.next();
+                returnInt = rs.getInt(10);
+//                returnInt = Integer.parseInt(rs.getString("ID_position"));
+            } catch (Exception e) {
+                Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, e);
+            }
+            return returnInt;
+        }
         
         public ResultSet ShowClientOrders()
         {
@@ -90,6 +103,33 @@ public class DBConnect {
             }
             return null; 
         }
+        
+        public ResultSet ShowAllEmployees() {
+            try {
+                return st.executeQuery("SELECT * FROM employees;");
+            } catch (SQLException ex) {
+                Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return null; 
+        }
+        
+        public ResultSet ShowAllClientOrderedDrinks() {
+            try {
+                return st.executeQuery("SELECT * FROM clientordereddrinks;");
+            } catch (SQLException ex) {
+                Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return null; 
+        }
+        
+        public ResultSet ShowAllWarehouseOrderedDrinks() {
+            try {
+                return st.executeQuery("SELECT * FROM warehouseorderedproducts;");
+            } catch (SQLException ex) {
+                Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return null; 
+        }
 	
         public Connection getConnection()
         {
@@ -109,7 +149,7 @@ public class DBConnect {
 	    return bytes;
 	}
         
-	public String HashLogin(String login)
+        public String HashLogin(String login)
         {
             byte[] loginBytes = login.getBytes();
 		String loginHashValue = "";
@@ -124,9 +164,9 @@ public class DBConnect {
                 return loginHashValue;
         }
         
-        public String HashPassword(String password)
+        public String HashPassword(char[] password)
         {
-            byte[] passwordBytes = password.getBytes();
+            byte[] passwordBytes = toBytes(password);
 		String passwordHashValue = "";
 		try {
 			MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");
@@ -138,6 +178,7 @@ public class DBConnect {
 		}
                 return passwordHashValue;
         }
+	
 	public int Login(String login, char[] password)
 	{
 		byte[] loginBytes = login.getBytes();

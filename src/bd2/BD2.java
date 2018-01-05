@@ -38,7 +38,8 @@ public class BD2 {
 //        System.out.println("zwrocono:"+loggedEmployee);
 	tmpMainFrame.dispose();
         //Now loggedEmployee has privilage number to open proper window
-        switch(loggedEmployee)
+        int privilege = connect.GetPrivileges(loggedEmployee);
+        switch(privilege)
         {
             case 1:
                 JFrameManager managerFrame = new JFrameManager(connect, loggedEmployee);

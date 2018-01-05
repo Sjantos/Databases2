@@ -32,6 +32,7 @@ public class JFrameAddWorker extends javax.swing.JFrame {
         con = connect.getConnection();
         initComponents();
         initBoxes();
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
     private void initBoxes()
     {
@@ -65,7 +66,6 @@ public class JFrameAddWorker extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         Login = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        Password = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         PhoneNumber = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -78,6 +78,7 @@ public class JFrameAddWorker extends javax.swing.JFrame {
         Type = new javax.swing.JComboBox<>();
         Add = new javax.swing.JButton();
         Close = new javax.swing.JButton();
+        Password = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -117,37 +118,41 @@ public class JFrameAddWorker extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(LastName)
-                    .addComponent(FirstName)
-                    .addComponent(Login)
-                    .addComponent(Password)
-                    .addComponent(PhoneNumber)
-                    .addComponent(Email)
-                    .addComponent(Street)
-                    .addComponent(City)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(Password))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9)
-                            .addComponent(Type, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(LastName)
+                            .addComponent(FirstName)
+                            .addComponent(Login)
+                            .addComponent(PhoneNumber)
+                            .addComponent(Email)
+                            .addComponent(Street)
+                            .addComponent(City)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel9)
+                                    .addComponent(Type, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(Add, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Close, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 40, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(Add, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Close, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -226,7 +231,7 @@ public class JFrameAddWorker extends javax.swing.JFrame {
             String lastName = LastName.getText();
             String firstName = FirstName.getText();
             String login = connect.HashLogin(Login.getText());
-           String password = connect.HashPassword(Password.getText());
+            String password = connect.HashPassword(Password.getPassword());
             int phone_number = Integer.parseInt(PhoneNumber.getText());
             String email = Email.getText();
             String street = Street.getText();
@@ -287,7 +292,7 @@ public class JFrameAddWorker extends javax.swing.JFrame {
     private javax.swing.JTextField FirstName;
     private javax.swing.JTextField LastName;
     private javax.swing.JTextField Login;
-    private javax.swing.JTextField Password;
+    private javax.swing.JPasswordField Password;
     private javax.swing.JTextField PhoneNumber;
     private javax.swing.JTextField Street;
     private javax.swing.JComboBox<String> Type;

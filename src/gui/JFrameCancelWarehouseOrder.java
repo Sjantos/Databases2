@@ -25,6 +25,7 @@ public class JFrameCancelWarehouseOrder extends javax.swing.JFrame {
     public JFrameCancelWarehouseOrder(DBConnect con) {
         initComponents();
         connect = con;
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     /**

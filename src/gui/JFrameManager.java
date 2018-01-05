@@ -2,6 +2,7 @@ package gui;
 
 import bd2.DBConnect;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import javax.swing.JFrame;
 import net.proteanit.sql.DbUtils;
 
@@ -9,6 +10,7 @@ public class JFrameManager extends javax.swing.JFrame {
     JFrame frame;
     DBConnect connect;
     int loggedEmployeeID;
+    String tableSelectedName;
     /**
      * Creates new form JFrameManager
      * @param con
@@ -19,7 +21,15 @@ public class JFrameManager extends javax.swing.JFrame {
         frame = this;
         connect = con;
         loggedEmployeeID = employeeID;
-        table.setModel(DbUtils.resultSetToTableModel(connect.ShowClientOrders()));
+        tableSelectedName = "clientOrders";
+        //table.setModel(DbUtils.resultSetToTableModel(connect.ShowClientOrders()));
+        UpdateView(connect.ShowClientOrders());
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+    
+    public void UpdateView(ResultSet result)
+    {
+        table.setModel(DbUtils.resultSetToTableModel(result));
     }
 
     /**
@@ -48,10 +58,13 @@ public class JFrameManager extends javax.swing.JFrame {
         buttonAddProvider = new javax.swing.JButton();
         panelViews = new javax.swing.JPanel();
         buttonClientOrders = new javax.swing.JButton();
+        buttonClientOrderedDrinks = new javax.swing.JButton();
         buttonWarehouseOrders = new javax.swing.JButton();
+        buttonWarehouseOrderedDrinks = new javax.swing.JButton();
         buttonClients = new javax.swing.JButton();
         buttonProviders = new javax.swing.JButton();
         buttonDrinks = new javax.swing.JButton();
+        buttonShowWorkers = new javax.swing.JButton();
         scrollpanel = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
 
@@ -88,15 +101,35 @@ public class JFrameManager extends javax.swing.JFrame {
         panelOptions.add(buttonChangeQuantity);
 
         buttonMakeWarehouseOrder.setText("Złóż zamówienie hurtowni");
+        buttonMakeWarehouseOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonMakeWarehouseOrderActionPerformed(evt);
+            }
+        });
         panelOptions.add(buttonMakeWarehouseOrder);
 
         buttonCancelWarehouseOrder.setText("Anuluj zamówienie hurtowni");
+        buttonCancelWarehouseOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCancelWarehouseOrderActionPerformed(evt);
+            }
+        });
         panelOptions.add(buttonCancelWarehouseOrder);
 
         buttonMakeClientOrder.setText("Złóż zamówienie klienta");
+        buttonMakeClientOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonMakeClientOrderActionPerformed(evt);
+            }
+        });
         panelOptions.add(buttonMakeClientOrder);
 
         buttonCancelClientOrder.setText("Anuluj zamówienie klienta");
+        buttonCancelClientOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCancelClientOrderActionPerformed(evt);
+            }
+        });
         panelOptions.add(buttonCancelClientOrder);
 
         buttonAddClient.setText("Dodaj klienta");
@@ -149,6 +182,14 @@ public class JFrameManager extends javax.swing.JFrame {
         });
         panelViews.add(buttonClientOrders);
 
+        buttonClientOrderedDrinks.setText("Show client ordered drinks");
+        buttonClientOrderedDrinks.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonClientOrderedDrinksActionPerformed(evt);
+            }
+        });
+        panelViews.add(buttonClientOrderedDrinks);
+
         buttonWarehouseOrders.setText("Show warehouse orders");
         buttonWarehouseOrders.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,6 +197,14 @@ public class JFrameManager extends javax.swing.JFrame {
             }
         });
         panelViews.add(buttonWarehouseOrders);
+
+        buttonWarehouseOrderedDrinks.setText("Show warehouse ordered drinks");
+        buttonWarehouseOrderedDrinks.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonWarehouseOrderedDrinksActionPerformed(evt);
+            }
+        });
+        panelViews.add(buttonWarehouseOrderedDrinks);
 
         buttonClients.setText("Show clients");
         buttonClients.addActionListener(new java.awt.event.ActionListener() {
@@ -181,6 +230,14 @@ public class JFrameManager extends javax.swing.JFrame {
         });
         panelViews.add(buttonDrinks);
 
+        buttonShowWorkers.setText("Show employees");
+        buttonShowWorkers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonShowWorkersActionPerformed(evt);
+            }
+        });
+        panelViews.add(buttonShowWorkers);
+
         getContentPane().add(panelViews, java.awt.BorderLayout.PAGE_START);
 
         table.setModel(new javax.swing.table.DefaultTableModel(
@@ -203,10 +260,11 @@ public class JFrameManager extends javax.swing.JFrame {
 
     private void buttonClientOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonClientOrdersActionPerformed
         table.setModel(DbUtils.resultSetToTableModel(connect.ShowClientOrders()));
+        tableSelectedName = "clientOrders";
     }//GEN-LAST:event_buttonClientOrdersActionPerformed
 
     private void buttonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSearchActionPerformed
-        JFrameSearch searchFrame = new JFrameSearch(table, frame);
+        JFrameSearch searchFrame = new JFrameSearch(table, frame, tableSelectedName, connect);
         
         searchFrame.setVisible(true);
         System.out.println(searchFrame.isVisible());
@@ -214,18 +272,22 @@ public class JFrameManager extends javax.swing.JFrame {
 
     private void buttonDrinksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDrinksActionPerformed
         table.setModel(DbUtils.resultSetToTableModel(connect.ShowAllDrinks()));
+        tableSelectedName = "drinks";
     }//GEN-LAST:event_buttonDrinksActionPerformed
 
     private void buttonWarehouseOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonWarehouseOrdersActionPerformed
         table.setModel(DbUtils.resultSetToTableModel(connect.ShowWarehouseOrders()));
+        tableSelectedName = "warehouseOrders";
     }//GEN-LAST:event_buttonWarehouseOrdersActionPerformed
 
     private void buttonClientsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonClientsActionPerformed
         table.setModel(DbUtils.resultSetToTableModel(connect.ShowAllClients()));
+        tableSelectedName = "clients";
     }//GEN-LAST:event_buttonClientsActionPerformed
 
     private void buttonProvidersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonProvidersActionPerformed
         table.setModel(DbUtils.resultSetToTableModel(connect.ShowAllProviders()));
+        tableSelectedName = "providers";
     }//GEN-LAST:event_buttonProvidersActionPerformed
 
     private void buttonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditActionPerformed
@@ -283,6 +345,52 @@ public class JFrameManager extends javax.swing.JFrame {
         System.out.println(ChangeamountofDrinkFrame.isVisible());
     }//GEN-LAST:event_buttonChangeQuantityActionPerformed
 
+    private void buttonMakeWarehouseOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMakeWarehouseOrderActionPerformed
+        // TODO add your handling code here:
+        JFrameMakeWarehouseOrder makeWarehouseOrderFrame = new JFrameMakeWarehouseOrder(connect, loggedEmployeeID);
+        
+        makeWarehouseOrderFrame.setVisible(true);
+    }//GEN-LAST:event_buttonMakeWarehouseOrderActionPerformed
+
+    private void buttonCancelWarehouseOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelWarehouseOrderActionPerformed
+        // TODO add your handling code here:
+        JFrameCancelWarehouseOrder cancelWarehouseOrderFrame = new JFrameCancelWarehouseOrder(connect);
+        
+        cancelWarehouseOrderFrame.setVisible(true);
+    }//GEN-LAST:event_buttonCancelWarehouseOrderActionPerformed
+
+    private void buttonMakeClientOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMakeClientOrderActionPerformed
+        // TODO add your handling code here:
+        JFrameMakeClientOrder makeClientOrderFrame = new JFrameMakeClientOrder(connect, loggedEmployeeID);
+        
+        makeClientOrderFrame.setVisible(true);
+    }//GEN-LAST:event_buttonMakeClientOrderActionPerformed
+
+    private void buttonCancelClientOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelClientOrderActionPerformed
+        // TODO add your handling code here:
+        JFrameCancelClientOrder cancelClientOrderFrame = new JFrameCancelClientOrder(connect);
+        
+        cancelClientOrderFrame.setVisible(true);
+    }//GEN-LAST:event_buttonCancelClientOrderActionPerformed
+
+    private void buttonClientOrderedDrinksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonClientOrderedDrinksActionPerformed
+        // TODO add your handling code here:
+        table.setModel(DbUtils.resultSetToTableModel(connect.ShowAllClientOrderedDrinks()));
+        tableSelectedName = "clientordereddrinks";
+    }//GEN-LAST:event_buttonClientOrderedDrinksActionPerformed
+
+    private void buttonWarehouseOrderedDrinksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonWarehouseOrderedDrinksActionPerformed
+        // TODO add your handling code here:
+        table.setModel(DbUtils.resultSetToTableModel(connect.ShowAllWarehouseOrderedDrinks()));
+        tableSelectedName = "warehouseorderedproducts";
+    }//GEN-LAST:event_buttonWarehouseOrderedDrinksActionPerformed
+
+    private void buttonShowWorkersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonShowWorkersActionPerformed
+        // TODO add your handling code here:
+        table.setModel(DbUtils.resultSetToTableModel(connect.ShowAllEmployees()));
+        tableSelectedName = "employees";
+    }//GEN-LAST:event_buttonShowWorkersActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddClient;
@@ -292,6 +400,7 @@ public class JFrameManager extends javax.swing.JFrame {
     private javax.swing.JButton buttonCancelClientOrder;
     private javax.swing.JButton buttonCancelWarehouseOrder;
     private javax.swing.JButton buttonChangeQuantity;
+    private javax.swing.JButton buttonClientOrderedDrinks;
     private javax.swing.JButton buttonClientOrders;
     private javax.swing.JButton buttonClients;
     private javax.swing.JButton buttonDeleteDrink;
@@ -301,6 +410,8 @@ public class JFrameManager extends javax.swing.JFrame {
     private javax.swing.JButton buttonMakeWarehouseOrder;
     private javax.swing.JButton buttonProviders;
     private javax.swing.JButton buttonSearch;
+    private javax.swing.JButton buttonShowWorkers;
+    private javax.swing.JButton buttonWarehouseOrderedDrinks;
     private javax.swing.JButton buttonWarehouseOrders;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

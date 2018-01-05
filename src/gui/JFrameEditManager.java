@@ -24,6 +24,7 @@ public class JFrameEditManager extends javax.swing.JFrame {
         initComponents();
         verifyId = false;
         Boolean canBeExecuted = true;
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     public void end()

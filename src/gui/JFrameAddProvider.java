@@ -29,7 +29,7 @@ public class JFrameAddProvider extends javax.swing.JFrame {
         connect = conn;
         con = connect.getConnection();
         initComponents();
-
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     /**
