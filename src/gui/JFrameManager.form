@@ -83,6 +83,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Anuluj zam&#xf3;wienie hurtowni"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCancelWarehouseOrderActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="buttonMakeClientOrder">
           <Properties>
@@ -96,6 +99,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Anuluj zam&#xf3;wienie klienta"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCancelClientOrderActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="buttonAddClient">
           <Properties>

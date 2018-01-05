@@ -43,6 +43,7 @@ public class JFrameSearch extends javax.swing.JFrame {
         this.table = table;
         tableSelectedName = tName;
         int numberOfColumns = table.getColumnCount();
+        this.setSize(200, numberOfColumns*2*25);
         panelSearchOptions.setLayout(new GridLayout(2*numberOfColumns, 1, 4, 4));
         textFields = new LinkedList<JTextField>();
         for (int i = 0; i < 2*numberOfColumns; i++) {

@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -198,8 +199,15 @@ public class JFrameMakeWarehouseOrder extends javax.swing.JFrame {
         date.append(dateTime.getMonthValue());
         date.append("-");
         date.append(dateTime.getDayOfMonth());
-        int providerID = Integer.parseInt(textBoxProviderID.getText());
+        
+        int providerID = -1;
         LinkedList productIDs = new LinkedList();
+        LinkedList productQuantities = new LinkedList();
+        boolean dataCorrect = true;
+        
+        try {
+            providerID = Integer.parseInt(textBoxProviderID.getText());
+        
         if(!textBoxDrinkID1.getText().isEmpty())
             productIDs.add(Integer.parseInt(textBoxDrinkID1.getText()));
         if(!textBoxDrinkID2.getText().isEmpty())
@@ -221,7 +229,6 @@ public class JFrameMakeWarehouseOrder extends javax.swing.JFrame {
         if(!textBoxDrinkID10.getText().isEmpty())
             productIDs.add(Integer.parseInt(textBoxDrinkID10.getText()));
         
-        LinkedList productQuantities = new LinkedList();
         if(!textBoxQuantity1.getText().isEmpty())
             productQuantities.add(Integer.parseInt(textBoxQuantity1.getText()));
         if(!textBoxQuantity2.getText().isEmpty())
@@ -242,8 +249,14 @@ public class JFrameMakeWarehouseOrder extends javax.swing.JFrame {
             productQuantities.add(Integer.parseInt(textBoxQuantity9.getText()));
         if(!textBoxQuantity10.getText().isEmpty())
             productQuantities.add(Integer.parseInt(textBoxQuantity10.getText()));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Bledne dane.","Error", JOptionPane.ERROR_MESSAGE);
+            dataCorrect = false;
+        }
         
-        int warehouseOrderID = -1;
+        if(dataCorrect)
+        {
+            int warehouseOrderID = -1;
         try {
             Connection con = connect.getConnection();
             CallableStatement myStmt = con.prepareCall("SELECT * FROM warehouseOrders");
@@ -283,6 +296,7 @@ public class JFrameMakeWarehouseOrder extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println("ERROR dodawanie produktow do zamowienia");
             Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, e);
+        }
         }
         }
         

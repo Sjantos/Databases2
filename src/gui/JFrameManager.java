@@ -105,6 +105,11 @@ public class JFrameManager extends javax.swing.JFrame {
         panelOptions.add(buttonMakeWarehouseOrder);
 
         buttonCancelWarehouseOrder.setText("Anuluj zamówienie hurtowni");
+        buttonCancelWarehouseOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCancelWarehouseOrderActionPerformed(evt);
+            }
+        });
         panelOptions.add(buttonCancelWarehouseOrder);
 
         buttonMakeClientOrder.setText("Złóż zamówienie klienta");
@@ -116,6 +121,11 @@ public class JFrameManager extends javax.swing.JFrame {
         panelOptions.add(buttonMakeClientOrder);
 
         buttonCancelClientOrder.setText("Anuluj zamówienie klienta");
+        buttonCancelClientOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCancelClientOrderActionPerformed(evt);
+            }
+        });
         panelOptions.add(buttonCancelClientOrder);
 
         buttonAddClient.setText("Dodaj klienta");
@@ -320,6 +330,20 @@ public class JFrameManager extends javax.swing.JFrame {
         
         makeWarehouseOrderFrame.setVisible(true);
     }//GEN-LAST:event_buttonMakeWarehouseOrderActionPerformed
+
+    private void buttonCancelWarehouseOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelWarehouseOrderActionPerformed
+        // TODO add your handling code here:
+        JFrameCancelWarehouseOrder cancelWarehouseOrderFrame = new JFrameCancelWarehouseOrder(connect);
+        
+        cancelWarehouseOrderFrame.setVisible(true);
+    }//GEN-LAST:event_buttonCancelWarehouseOrderActionPerformed
+
+    private void buttonCancelClientOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelClientOrderActionPerformed
+        // TODO add your handling code here:
+        JFrameCancelClientOrder cancelClientOrderFrame = new JFrameCancelClientOrder(connect);
+        
+        cancelClientOrderFrame.setVisible(true);
+    }//GEN-LAST:event_buttonCancelClientOrderActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
