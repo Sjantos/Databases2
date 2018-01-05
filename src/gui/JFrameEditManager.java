@@ -3,28 +3,51 @@ package gui;
 
 import bd2.DBConnect;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 
 public class JFrameEditManager extends javax.swing.JFrame {
     DBConnect connect;
     Connection con;
     Statement st;
-    int id;
+    int id = 0;
+    Boolean verifyId;
+    Boolean canBeExecuted = true;
     public JFrameEditManager(DBConnect conn) {
         connect = conn;
         con = connect.getConnection();
         initComponents();
+        verifyId = false;
+        Boolean canBeExecuted = true;
     }
 
-        public void end()
+    public void end()
     {
         setVisible(false);
         dispose();
     }
     public void getId()
     {
-        id = Integer.parseInt(Id.getText());
+        for(int i = 0 ; i < Id.getText().length() ; i++)
+        {
+            if(Id.getText().charAt(i) < 48 || Id.getText().charAt(i) > 57)
+               canBeExecuted = false; 
+                
+        }
+        if(Id.getText().equals(""))
+        {
+                canBeExecuted = false;
+
+        }
+        if( canBeExecuted == true)
+        {
+            id = Integer.parseInt(Id.getText());
+        }
     }
         
         
@@ -155,37 +178,133 @@ public class JFrameEditManager extends javax.swing.JFrame {
 
     private void EditWorkerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditWorkerActionPerformed
         // TODO add your handling code here:
+         canBeExecuted = true;
         getId();
+        Statement st = null;
+        ResultSet rs = null;
+        try {
+            st = con.createStatement();
+            rs = st.executeQuery("SELECT * FROM employees;");
+            
+            while(rs.next())
+            {
+                if(id == rs.getInt(1))
+                {
+                      verifyId = true;      
+                }
+            }
+            } catch (SQLException ex) {
+            Logger.getLogger(JFrameEditDrink.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if(verifyId == false)
+            {
+                JOptionPane.showMessageDialog(null,"Bledny indeks.","Error", JOptionPane.ERROR_MESSAGE);
+                Id.removeAll();
+            } else
+            {
+                JFrameEditWorker EditWorkerFrame = new JFrameEditWorker(connect,id);
+                EditWorkerFrame.setVisible(true);
+                           end();
+                
+            }
+           Id.setText("");
         
-        end();
     }//GEN-LAST:event_EditWorkerActionPerformed
 
     private void EditDrinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditDrinkActionPerformed
         // TODO add your handling code here:
+         canBeExecuted = true;
         getId();
-        JFrameEditDrink EditDrinkFrame = new JFrameEditDrink(connect,id);
-        
-        EditDrinkFrame.setVisible(true);
-        System.out.println(EditDrinkFrame.isVisible());
-        end();
+                Statement st = null;
+        ResultSet rs = null;
+        try {
+            st = con.createStatement();
+            rs = st.executeQuery("SELECT * FROM drinks;");
+            
+            while(rs.next())
+            {
+                if(id == rs.getInt(1))
+                {
+                      verifyId = true;      
+                }
+            }
+            } catch (SQLException ex) {
+            Logger.getLogger(JFrameEditDrink.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if(verifyId == false)
+            {
+                JOptionPane.showMessageDialog(null,"Bledny indeks.","Error", JOptionPane.ERROR_MESSAGE);
+            } else
+            {
+                JFrameEditDrink EditDrinkFrame = new JFrameEditDrink(connect,id);
+                EditDrinkFrame.setVisible(true);
+                 end();
+            }
+           Id.setText("");
     }//GEN-LAST:event_EditDrinkActionPerformed
 
     private void EditClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditClientActionPerformed
-        // TODO add your handling code here:
+
+         canBeExecuted = true;
         getId();
-        JFrameEditClient EditClientFrame = new JFrameEditClient(connect,id);
-        
-        EditClientFrame.setVisible(true);
-        System.out.println(EditClientFrame.isVisible());
-        
-        end();
+                Statement st = null;
+        ResultSet rs = null;
+        try {
+            st = con.createStatement();
+            rs = st.executeQuery("SELECT * FROM clients;");
+            
+            while(rs.next())
+            {
+                if(id == rs.getInt(1))
+                {
+                      verifyId = true;      
+                }
+            }
+            } catch (SQLException ex) {
+            Logger.getLogger(JFrameEditClient.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if(verifyId == false)
+            {
+                JOptionPane.showMessageDialog(null,"Bledny indeks.","Error", JOptionPane.ERROR_MESSAGE);
+            } else
+            {
+                JFrameEditClient EditDrinkFrame = new JFrameEditClient(connect,id);
+                EditDrinkFrame.setVisible(true);
+                end();
+            }
+           Id.setText("");
     }//GEN-LAST:event_EditClientActionPerformed
 
     private void EditProviderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditProviderActionPerformed
-        // TODO add your handling code here:
+
+         canBeExecuted = true;
         getId();
-        
-        end();
+                Statement st = null;
+        ResultSet rs = null;
+        try {
+            st = con.createStatement();
+            rs = st.executeQuery("SELECT * FROM providers;");
+            
+            while(rs.next())
+            {
+                if(id == rs.getInt(1))
+                {
+                      verifyId = true;      
+                }
+            }
+            } catch (SQLException ex) {
+            Logger.getLogger(JFrameEditProvider.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if(verifyId == false)
+            {
+                JOptionPane.showMessageDialog(null,"Bledny indeks.","Error", JOptionPane.ERROR_MESSAGE);
+            } else
+            {
+                JFrameEditProvider EditDrinkFrame = new JFrameEditProvider(connect,id);
+                EditDrinkFrame.setVisible(true);
+                end();
+            }
+           Id.setText("");
     }//GEN-LAST:event_EditProviderActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

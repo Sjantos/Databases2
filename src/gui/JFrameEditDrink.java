@@ -10,6 +10,7 @@ import java.sql.*;
 import bd2.DBConnect;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,6 +23,7 @@ public class JFrameEditDrink extends javax.swing.JFrame {
     int id;
     int Idconsolidatedpacks;
     int Idpacks;
+        Boolean canBeExecuted = true;
     /**
      * Creates new form JFrameAddDrink
      */
@@ -80,11 +82,12 @@ public class JFrameEditDrink extends javax.swing.JFrame {
             int index = 0;
         while(rs.next()) 
         { 
+            int Id_packs = rs.getInt(1);
            String capasity = rs.getString(2);
             String material = rs.getString(3);
            String d = capasity + "," + material;
            Pack.addItem(d);
-            if(index == Idpacks - 1 )
+            if(Id_packs == Idpacks  )
             {
                 Pack.setSelectedIndex(index);
             }
@@ -96,13 +99,13 @@ public class JFrameEditDrink extends javax.swing.JFrame {
         while(rs.next()) 
         { 
 
-            
+          int Id_consolidatepacks = rs.getInt(1);
           String quantity = rs.getString(2);
           String packType = rs.getString(3);
           String dimentions = rs.getString(4);
           String d = quantity + "," + packType + "," + dimentions;
           ConsolidatedPack.addItem(d);
-          if(index == Idconsolidatedpacks -1  )
+          if(Id_consolidatepacks == Idconsolidatedpacks   )
           {
               ConsolidatedPack.setSelectedIndex(index);
           }
@@ -366,49 +369,61 @@ con.close();
     }//GEN-LAST:event_CloseActionPerformed
 
     private void ChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChangeActionPerformed
-        // TODO add your handling code here:
-                con = connect.getConnection();
-        String name = Name.getText();
-        double price = Double.parseDouble(Price.getText());
-        int amount = Integer.parseInt(Amount.getText());
-        boolean sugar = Sugar.isSelected();
-        boolean alcohol = Alcohol.isSelected();
-        boolean fizzy = Fizzy.isSelected();
-        //int wareHouseSector = WareHouseSector.getSelectedIndex();
-        double alcoholDose = Double.parseDouble(AlcoholDose.getSelectedItem().toString());
-        String wareHouseSector = WareHouseSector.getSelectedItem().toString();
-        int consolidatedPack = ConsolidatedPack.getSelectedIndex()+1;
-        int pack = Pack.getSelectedIndex()+1;
+       
+        if(Name.getText().equals(""))
+            canBeExecuted = false;
         
-        System.out.println(name);
-        System.out.println(price);
-        System.out.println(amount);
-        System.out.println(sugar);
-        System.out.println(alcohol);
-        System.out.println(fizzy);
-        System.out.println(alcoholDose);
-        System.out.println(wareHouseSector);
-        System.out.println(consolidatedPack);
-        System.out.println(pack);
-        
-        try{
-        CallableStatement myStmt = con.prepareCall("{call EditDrink(?,?,?,?,?,?,?,?,?,?,?)}");
-        myStmt.setInt(1,id);
-        myStmt.setString(2,name);
-        myStmt.setDouble(3,price);
-        myStmt.setBoolean(4,sugar);
-        myStmt.setBoolean(5,alcohol);
-        myStmt.setDouble(6,alcoholDose);
-        myStmt.setBoolean(7,fizzy);
-        myStmt.setString(8,wareHouseSector);
-        myStmt.setInt(9,amount);
-        myStmt.setInt(10,pack);
-        myStmt.setInt(11,consolidatedPack);
-        myStmt.execute();
-        } catch (SQLException ex) {
-                Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
+        for(int i = 0 ; i < Price.getText().length() ; i++)
+        {
+            if(Price.getText().charAt(i) < 48 || Price.getText().charAt(i) > 57 )
+                canBeExecuted = false;
+            if(Price.getText().charAt(i) == 46)
+               canBeExecuted = true; 
         }
+        for(int i = 0 ; i < Amount.getText().length() ; i++)
+        {
+            if(Amount.getText().charAt(i) < 48 || Amount.getText().charAt(i) > 57 )
+                canBeExecuted = false;
+        }
+
+
         
+        
+        if (canBeExecuted == true)
+        {
+            con = connect.getConnection();
+            String name = Name.getText();
+            double price = Double.parseDouble(Price.getText());
+            int amount = Integer.parseInt(Amount.getText());
+            boolean sugar = Sugar.isSelected();
+            boolean alcohol = Alcohol.isSelected();
+            boolean fizzy = Fizzy.isSelected();
+            //int wareHouseSector = WareHouseSector.getSelectedIndex();
+            double alcoholDose = Double.parseDouble(AlcoholDose.getSelectedItem().toString());
+            String wareHouseSector = WareHouseSector.getSelectedItem().toString();
+            int consolidatedPack = ConsolidatedPack.getSelectedIndex()+1;
+            int pack = Pack.getSelectedIndex()+1;
+            try{
+            CallableStatement myStmt = con.prepareCall("{call EditDrink(?,?,?,?,?,?,?,?,?,?,?)}");
+            myStmt.setInt(1,id);
+            myStmt.setString(2,name);
+            myStmt.setDouble(3,price);
+            myStmt.setBoolean(4,sugar);
+            myStmt.setBoolean(5,alcohol);
+            myStmt.setDouble(6,alcoholDose);
+            myStmt.setBoolean(7,fizzy);
+            myStmt.setString(8,wareHouseSector);
+            myStmt.setInt(9,amount);
+            myStmt.setInt(10,pack);
+            myStmt.setInt(11,consolidatedPack);
+            myStmt.execute();
+            } catch (SQLException ex) {
+                    Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else
+        {
+            JOptionPane.showMessageDialog(null,"Bledne dane.","Error", JOptionPane.ERROR_MESSAGE);
+        }
         
         
         end();

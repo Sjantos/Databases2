@@ -54,7 +54,7 @@
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-              <Component id="Add" min="-2" pref="117" max="-2" attributes="0"/>
+              <Component id="Change" min="-2" pref="117" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="Close" min="-2" pref="114" max="-2" attributes="0"/>
               <EmptySpace pref="50" max="32767" attributes="0"/>
@@ -103,7 +103,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="Close" pref="78" max="32767" attributes="0"/>
-                  <Component id="Add" max="32767" attributes="0"/>
+                  <Component id="Change" max="32767" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -181,12 +181,12 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JButton" name="Add">
+    <Component class="javax.swing.JButton" name="Change">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Add"/>
+        <Property name="text" type="java.lang.String" value="Change"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AddActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ChangeActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="Close">

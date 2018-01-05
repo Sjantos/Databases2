@@ -17,21 +17,46 @@ import javax.swing.JOptionPane;
  *
  * @author Lapszo
  */
-public class JFrameAddProvider extends javax.swing.JFrame {
+public class JFrameEditProvider extends javax.swing.JFrame {
     DBConnect connect;
     Connection con;
     Statement st;
+    int id;
     Boolean canBeExecuted = true;
     /**
      * Creates new form JFrameAddProvider
      */
-    public JFrameAddProvider(DBConnect conn) {
+    public JFrameEditProvider(DBConnect conn,int id) {
         connect = conn;
         con = connect.getConnection();
+        this.id = id;
         initComponents();
+        initBoxes();
 
     }
-
+    private void initBoxes()
+    {
+        Statement st = null;
+        ResultSet rs = null;
+        try {
+            st = con.createStatement();
+            rs = st.executeQuery("SELECT * FROM providers;");
+            while(rs.next()) 
+            { 
+                if(id == rs.getInt(1))
+                {
+                       Name.setText(rs.getString(2));
+                       PhoneNumber.setText(rs.getString(3));
+                       Email.setText(rs.getString(4));
+                       Street.setText(rs.getString(5));
+                       City.setText(rs.getString(6));
+                   
+                }
+            }   
+        } catch (SQLException ex) {
+            Logger.getLogger(JFrameAddDrink.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -51,7 +76,7 @@ public class JFrameAddProvider extends javax.swing.JFrame {
         Street = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         City = new javax.swing.JTextField();
-        Add = new javax.swing.JButton();
+        Change = new javax.swing.JButton();
         Close = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -68,10 +93,10 @@ public class JFrameAddProvider extends javax.swing.JFrame {
 
         jLabel4.setText("City");
 
-        Add.setText("Add");
-        Add.addActionListener(new java.awt.event.ActionListener() {
+        Change.setText("Change");
+        Change.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddActionPerformed(evt);
+                ChangeActionPerformed(evt);
             }
         });
 
@@ -103,7 +128,7 @@ public class JFrameAddProvider extends javax.swing.JFrame {
                             .addComponent(jLabel4))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(Add, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Change, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Close, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -134,16 +159,15 @@ public class JFrameAddProvider extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Close, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
-                    .addComponent(Add, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Change, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
-        // TODO add your handling code here:
-        
+    private void ChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChangeActionPerformed
+       
         if(Name.getText().equals(""))
             canBeExecuted = false;
         
@@ -168,12 +192,13 @@ public class JFrameAddProvider extends javax.swing.JFrame {
             String street = Street.getText();
             String city = City.getText();
             try{
-            CallableStatement myStmt = con.prepareCall("{call AddProvider(?,?,?,?,?)}");
-            myStmt.setString(1,name);
-            myStmt.setInt(2,phone_number);
-            myStmt.setString(3,email);
-            myStmt.setString(4,street);
-            myStmt.setString(5,city);
+            CallableStatement myStmt = con.prepareCall("{call EditProvider(?,?,?,?,?,?)}");
+            myStmt.setInt(1,id);
+            myStmt.setString(2,name);
+            myStmt.setInt(3,phone_number);
+            myStmt.setString(4,email);
+            myStmt.setString(5,street);
+            myStmt.setString(6,city);
             myStmt.execute();
             } catch (SQLException ex) {
                     Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
@@ -184,7 +209,7 @@ public class JFrameAddProvider extends javax.swing.JFrame {
         }
         
         end();
-    }//GEN-LAST:event_AddActionPerformed
+    }//GEN-LAST:event_ChangeActionPerformed
 
     private void CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CloseActionPerformed
         // TODO add your handling code here:
@@ -210,7 +235,7 @@ public class JFrameAddProvider extends javax.swing.JFrame {
         dispose();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Add;
+    private javax.swing.JButton Change;
     private javax.swing.JTextField City;
     private javax.swing.JButton Close;
     private javax.swing.JTextField Email;

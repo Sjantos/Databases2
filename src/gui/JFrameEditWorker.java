@@ -19,19 +19,21 @@ import javax.swing.JOptionPane;
  *
  * @author Lapszo
  */
-public class JFrameAddWorker extends javax.swing.JFrame {
+public class JFrameEditWorker extends javax.swing.JFrame {
     DBConnect connect;
     Connection con;
     Statement st;
+    int id;
     Boolean canBeExecuted = true;
     /**
      * Creates new form JFrameAddWorker
      */
-    public JFrameAddWorker(DBConnect conn) {
+    public JFrameEditWorker(DBConnect conn,int id) {
         connect = conn;
         con = connect.getConnection();
+        this.id = id;
         initComponents();
-        initBoxes();
+       initBoxes();
     }
     private void initBoxes()
     {
@@ -39,12 +41,41 @@ public class JFrameAddWorker extends javax.swing.JFrame {
         ResultSet rs = null;
         try {
             st = con.createStatement();
+            int position = 1;
+            rs = st.executeQuery("SELECT * FROM employees;");
+            while(rs.next()) 
+            { 
+                if(id == rs.getInt(1))
+                {
+                    
+                       LastName.setText(rs.getString(2));
+                       FirstName.setText(rs.getString(3));
+                       PhoneNumber.setText(rs.getString(6));
+                       Email.setText(rs.getString(7));
+                       Street.setText(rs.getString(8));
+                       City.setText(rs.getString(9));
+                       position = rs.getInt(10);
+                   
+                }
+            }
+            int index = 0;
             rs = st.executeQuery("SELECT * FROM positions;");
             while(rs.next()) 
             {   
                String name = rs.getString(2);
                Type.addItem(name);
+               if(position == rs.getInt(1))
+               {
+                   Type.setSelectedIndex(index);
+               }
+               index++;
             }
+            
+ 
+            
+            
+            
+            
         } catch (SQLException ex) {
             Logger.getLogger(JFrameAddDrink.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -76,7 +107,7 @@ public class JFrameAddWorker extends javax.swing.JFrame {
         City = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         Type = new javax.swing.JComboBox<>();
-        Add = new javax.swing.JButton();
+        Change = new javax.swing.JButton();
         Close = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -99,10 +130,10 @@ public class JFrameAddWorker extends javax.swing.JFrame {
 
         jLabel9.setText("Type");
 
-        Add.setText("Add");
-        Add.addActionListener(new java.awt.event.ActionListener() {
+        Change.setText("Change");
+        Change.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddActionPerformed(evt);
+                ChangeActionPerformed(evt);
             }
         });
 
@@ -144,7 +175,7 @@ public class JFrameAddWorker extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(37, 37, 37)
-                .addComponent(Add, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Change, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Close, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(50, Short.MAX_VALUE))
@@ -191,14 +222,14 @@ public class JFrameAddWorker extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(Close, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
-                    .addComponent(Add, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(Change, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
-        // TODO add your handling code here:
+    private void ChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChangeActionPerformed
+
         if(LastName.getText().equals(""))
             canBeExecuted = false;
         if(FirstName.getText().equals(""))
@@ -218,31 +249,31 @@ public class JFrameAddWorker extends javax.swing.JFrame {
             canBeExecuted = false;
         if(City.getText().equals(""))
             canBeExecuted = false;
-        
-        
+
         if(canBeExecuted == true)
         {
             con = connect.getConnection();
             String lastName = LastName.getText();
             String firstName = FirstName.getText();
             String login = connect.HashLogin(Login.getText());
-           String password = connect.HashPassword(Password.getText());
+            String password = connect.HashPassword(Password.getText());
             int phone_number = Integer.parseInt(PhoneNumber.getText());
             String email = Email.getText();
             String street = Street.getText();
             String city = City.getText();
             int position = Type.getSelectedIndex() + 1;
                     try{
-            CallableStatement myStmt = con.prepareCall("{call AddWorker(?,?,?,?,?,?,?,?,?)}");
-            myStmt.setString(1,lastName);
-            myStmt.setString(2,firstName);
-            myStmt.setString(3,login);
-            myStmt.setString(4,password);
-            myStmt.setInt(5,phone_number);
-            myStmt.setString(6,email);
-            myStmt.setString(7,street);
-            myStmt.setString(8,city);
-            myStmt.setInt(9,position);
+            CallableStatement myStmt = con.prepareCall("{call EditWorker(?,?,?,?,?,?,?,?,?,?)}");
+             myStmt.setInt(1,id);
+            myStmt.setString(2,lastName);
+            myStmt.setString(3,firstName);
+            myStmt.setString(4,login);
+            myStmt.setString(5,password);
+            myStmt.setInt(6,phone_number);
+            myStmt.setString(7,email);
+            myStmt.setString(8,street);
+            myStmt.setString(9,city);
+            myStmt.setInt(10,position);
             myStmt.execute();
             } catch (SQLException ex) {
                     Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
@@ -251,10 +282,9 @@ public class JFrameAddWorker extends javax.swing.JFrame {
         {
             JOptionPane.showMessageDialog(null,"Bledne dane.","Error", JOptionPane.ERROR_MESSAGE);
         }
-        
-        
+
         end();
-    }//GEN-LAST:event_AddActionPerformed
+    }//GEN-LAST:event_ChangeActionPerformed
 
     private void CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CloseActionPerformed
         // TODO add your handling code here:
@@ -280,7 +310,7 @@ public class JFrameAddWorker extends javax.swing.JFrame {
         dispose();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Add;
+    private javax.swing.JButton Change;
     private javax.swing.JTextField City;
     private javax.swing.JButton Close;
     private javax.swing.JTextField Email;
