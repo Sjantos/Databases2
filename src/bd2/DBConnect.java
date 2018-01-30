@@ -13,6 +13,8 @@ import javax.xml.bind.DatatypeConverter;
 
 
 public class DBConnect {
+
+
 	private class Triple<X, Y, Z> { 
 		  public final X x; 
 		  public final Y y; 
@@ -98,33 +100,6 @@ public class DBConnect {
         {
            try {
                 return st.executeQuery("SELECT * FROM providers;");
-            } catch (SQLException ex) {
-                Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            return null; 
-        }
-        
-        public ResultSet ShowAllEmployees() {
-            try {
-                return st.executeQuery("SELECT * FROM employees;");
-            } catch (SQLException ex) {
-                Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            return null; 
-        }
-        
-        public ResultSet ShowAllClientOrderedDrinks() {
-            try {
-                return st.executeQuery("SELECT * FROM clientordereddrinks;");
-            } catch (SQLException ex) {
-                Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            return null; 
-        }
-        
-        public ResultSet ShowAllWarehouseOrderedDrinks() {
-            try {
-                return st.executeQuery("SELECT * FROM warehouseorderedproducts;");
             } catch (SQLException ex) {
                 Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
             }

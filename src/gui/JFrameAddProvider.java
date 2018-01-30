@@ -11,7 +11,6 @@ import java.sql.*;
 import bd2.DBConnect;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,7 +20,6 @@ public class JFrameAddProvider extends javax.swing.JFrame {
     DBConnect connect;
     Connection con;
     Statement st;
-    Boolean canBeExecuted = true;
     /**
      * Creates new form JFrameAddProvider
      */
@@ -29,7 +27,7 @@ public class JFrameAddProvider extends javax.swing.JFrame {
         connect = conn;
         con = connect.getConnection();
         initComponents();
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
     }
 
     /**
@@ -144,43 +142,22 @@ public class JFrameAddProvider extends javax.swing.JFrame {
     private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
         // TODO add your handling code here:
         
-        if(Name.getText().equals(""))
-            canBeExecuted = false;
+        String name = Name.getText();
+        int phone_number = Integer.parseInt(PhoneNumber.getText());
+        String email = Email.getText();
+        String street = Street.getText();
+        String city = City.getText();
         
-        if(PhoneNumber.getText().length() != 9)
-            canBeExecuted = false;
-        for(int i = 0 ; i < PhoneNumber.getText().length() ; i++)
-        {
-            if(PhoneNumber.getText().charAt(i) < 48 || PhoneNumber.getText().charAt(i) > 57)
-                canBeExecuted = false;
-        }
-        
-        if(Street.getText().equals(""))
-            canBeExecuted = false;
-        if(City.getText().equals(""))
-            canBeExecuted = false;
-        
-        if (canBeExecuted == true)
-        {
-            String name = Name.getText();
-            int phone_number = Integer.parseInt(PhoneNumber.getText());
-            String email = Email.getText();
-            String street = Street.getText();
-            String city = City.getText();
-            try{
-            CallableStatement myStmt = con.prepareCall("{call AddProvider(?,?,?,?,?)}");
-            myStmt.setString(1,name);
-            myStmt.setInt(2,phone_number);
-            myStmt.setString(3,email);
-            myStmt.setString(4,street);
-            myStmt.setString(5,city);
-            myStmt.execute();
-            } catch (SQLException ex) {
-                    Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }else
-        {
-            JOptionPane.showMessageDialog(null,"Bledne dane.","Error", JOptionPane.ERROR_MESSAGE);
+        try{
+        CallableStatement myStmt = con.prepareCall("{call AddProvider(?,?,?,?,?)}");
+        myStmt.setString(1,name);
+        myStmt.setInt(2,phone_number);
+        myStmt.setString(3,email);
+        myStmt.setString(4,street);
+        myStmt.setString(5,city);
+        myStmt.execute();
+        } catch (SQLException ex) {
+                Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         end();

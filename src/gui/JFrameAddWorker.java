@@ -13,7 +13,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,7 +22,6 @@ public class JFrameAddWorker extends javax.swing.JFrame {
     DBConnect connect;
     Connection con;
     Statement st;
-    Boolean canBeExecuted = true;
     /**
      * Creates new form JFrameAddWorker
      */
@@ -32,7 +30,6 @@ public class JFrameAddWorker extends javax.swing.JFrame {
         con = connect.getConnection();
         initComponents();
         initBoxes();
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
     private void initBoxes()
     {
@@ -114,6 +111,8 @@ public class JFrameAddWorker extends javax.swing.JFrame {
             }
         });
 
+        Password.setText("jPasswordField1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -138,13 +137,13 @@ public class JFrameAddWorker extends javax.swing.JFrame {
                                     .addComponent(jLabel1)
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
                                     .addComponent(jLabel5)
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel7)
                                     .addComponent(jLabel8)
                                     .addComponent(jLabel9)
-                                    .addComponent(Type, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(Type, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4))
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(37, 37, 37)
@@ -173,7 +172,7 @@ public class JFrameAddWorker extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(9, 9, 9)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -204,57 +203,32 @@ public class JFrameAddWorker extends javax.swing.JFrame {
 
     private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
         // TODO add your handling code here:
-        if(LastName.getText().equals(""))
-            canBeExecuted = false;
-        if(FirstName.getText().equals(""))
-            canBeExecuted = false;
-        if(Login.getText().equals(""))
-            canBeExecuted = false;
-        if(Password.getText().equals(""))
-            canBeExecuted = false;
-        if(PhoneNumber.getText().length() != 9)
-            canBeExecuted = false;
-        for(int i = 0 ; i < PhoneNumber.getText().length() ; i++)
-        {
-            if(PhoneNumber.getText().charAt(i) < 48 || PhoneNumber.getText().charAt(i) > 57)
-                canBeExecuted = false;
-        }      
-        if(Street.getText().equals(""))
-            canBeExecuted = false;
-        if(City.getText().equals(""))
-            canBeExecuted = false;
+        con = connect.getConnection();
+        String lastName = LastName.getText();
+        String firstName = FirstName.getText();
+        String login = connect.HashLogin(Login.getText());
+        String password = connect.HashPassword(Password.getPassword());
+        int phone_number = Integer.parseInt(PhoneNumber.getText());
+        String email = Email.getText();
+        String street = Street.getText();
+        String city = City.getText();
+        int position = Type.getSelectedIndex() + 1;
         
-        
-        if(canBeExecuted == true)
-        {
-            con = connect.getConnection();
-            String lastName = LastName.getText();
-            String firstName = FirstName.getText();
-            String login = connect.HashLogin(Login.getText());
-            String password = connect.HashPassword(Password.getPassword());
-            int phone_number = Integer.parseInt(PhoneNumber.getText());
-            String email = Email.getText();
-            String street = Street.getText();
-            String city = City.getText();
-            int position = Type.getSelectedIndex() + 1;
-                    try{
-            CallableStatement myStmt = con.prepareCall("{call AddWorker(?,?,?,?,?,?,?,?,?)}");
-            myStmt.setString(1,lastName);
-            myStmt.setString(2,firstName);
-            myStmt.setString(3,login);
-            myStmt.setString(4,password);
-            myStmt.setInt(5,phone_number);
-            myStmt.setString(6,email);
-            myStmt.setString(7,street);
-            myStmt.setString(8,city);
-            myStmt.setInt(9,position);
-            myStmt.execute();
-            } catch (SQLException ex) {
-                    Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }else
-        {
-            JOptionPane.showMessageDialog(null,"Bledne dane.","Error", JOptionPane.ERROR_MESSAGE);
+        // trzeba zmienic dodawanie loginów i haseł jako zaszyfrowanych
+                try{
+        CallableStatement myStmt = con.prepareCall("{call AddWorker(?,?,?,?,?,?,?,?,?)}");
+        myStmt.setString(1,lastName);
+        myStmt.setString(2,firstName);
+        myStmt.setString(3,login);
+        myStmt.setString(4,password);
+        myStmt.setInt(5,phone_number);
+        myStmt.setString(6,email);
+        myStmt.setString(7,street);
+        myStmt.setString(8,city);
+        myStmt.setInt(9,position);
+        myStmt.execute();
+        } catch (SQLException ex) {
+                Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         
@@ -266,19 +240,6 @@ public class JFrameAddWorker extends javax.swing.JFrame {
         end();
     }//GEN-LAST:event_CloseActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    /*
-    public static void main(String args[]) {
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new JFrameAddWorker().setVisible(true);
-            }
-        });
-    }
-*/
    public void end()
     {
         setVisible(false);

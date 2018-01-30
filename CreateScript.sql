@@ -343,9 +343,9 @@ CREATE PROCEDURE EditOrderedWarehouseProduct(
 	IN PARAMdrinkID MEDIUMINT UNSIGNED,
 	IN PARAMquantity MEDIUMINT UNSIGNED)
 BEGIN
-DECLARE totalValue DECIMAL(10,2);
-SET totalValue = (SELECT providersPrice FROM warehouse.drinks WHERE ID_drink = drinkID)*quantity;
-UPDATE warehouse.warehouseOrderedProducts SET ID_warehouseOrder = PARAMID_warehouseOrder, ID_drink = PARAMdrinkID, amount = PARAMquantity. totalValue = totalValue WHERE ID_warehouseOrderedProduct = PARAMID_orderedWarehouseProduct;
+DECLARE totalV DECIMAL(10,2);
+SET totalV = (SELECT providersPrice FROM warehouse.drinks WHERE ID_drink = PARAMdrinkID)*PARAMquantity;
+UPDATE warehouse.warehouseOrderedProducts SET ID_warehouseOrder = PARAMID_warehouseOrder, ID_drink = PARAMdrinkID, amount = PARAMquantity, totalValue = totalV WHERE ID_warehouseOrderedProduct = PARAMID_orderedWarehouseProduct;
 END //
 DELIMITER ;
 
@@ -356,9 +356,9 @@ CREATE PROCEDURE EditOrderedClientProduct(
     IN PARAMdrinkID MEDIUMINT UNSIGNED,
     IN PARAMquantity MEDIUMINT UNSIGNED)
 BEGIN
-DECLARE totalValue DECIMAL(10,2);
-SET totalValue = (SELECT providersPrice FROM warehouse.drinks WHERE ID_drink = drinkID)*quantity*1.23;
-UPDATE warehouse.clientOrderedDrinks SET ID_clientOrder = PARAMID_clientOrder, ID_drink = PARAMdrinkID, amount = PARAMquantity, totalValue = totalValue WHERE ID_clientOrderedDrink = PARAMID_orderedClientProduct;
+DECLARE totalV DECIMAL(10,2);
+SET totalV = (SELECT providersPrice FROM warehouse.drinks WHERE ID_drink = PARAMdrinkID)*PARAMquantity*1.23;
+UPDATE warehouse.clientOrderedDrinks SET ID_clientOrder = PARAMID_clientOrder, ID_drink = PARAMdrinkID, amount = PARAMquantity, totalValue = totalV WHERE ID_clientOrderedDrink = PARAMID_orderedClientProduct;
 END //
 DELIMITER ;
 

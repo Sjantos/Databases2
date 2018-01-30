@@ -10,7 +10,6 @@ import java.sql.*;
 import bd2.DBConnect;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,14 +19,12 @@ public class JFrameAddClient extends javax.swing.JFrame {
     DBConnect connect;
     Connection con;
     Statement st;
-    Boolean canBeExecuted = true;
     /**
      * Creates new form JFrameAddClient
      */
     public JFrameAddClient(DBConnect con) {
         initComponents();
         connect = con;
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
     
     /**
@@ -186,61 +183,26 @@ public class JFrameAddClient extends javax.swing.JFrame {
 
     private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
         // TODO add your handling code here:
-                
-        
-        if(Name.getText().equals(""))
-            canBeExecuted = false;
-        if(Nip.getText().length() != 10)
-            canBeExecuted = false;
-        for(int i = 0 ; i < Nip.getText().length() ; i++)
-        {
-            if(Nip.getText().charAt(i) < 48 || Nip.getText().charAt(i) > 57)
-                canBeExecuted = false;
-        }
-        if(PhoneNumber.getText().length() != 9)
-            canBeExecuted = false;
-        for(int i = 0 ; i < PhoneNumber.getText().length() ; i++)
-        {
-            if(PhoneNumber.getText().charAt(i) < 48 || PhoneNumber.getText().charAt(i) > 57)
-                canBeExecuted = false;
-        }
-        if(City.getText().equals(""))
-            canBeExecuted = false;
-        for(int i = 0 ; i < Discount.getText().length() ; i++)
-        {
-            if(Discount.getText().charAt(i) < 48 || Discount.getText().charAt(i) > 57)
-                canBeExecuted = false;
-        }
-        if(Street.getText().equals(""))
-            canBeExecuted = false;
-
-        if(canBeExecuted == true)
-        {
-            con = connect.getConnection();
-            String name = Name.getText();
-            String nip = Nip.getText();
-            String phone_number = PhoneNumber.getText();
-            String city = City.getText();
-            String discount = Discount.getText();
-            String email = Email.getText();
-            String street = Street.getText();
-            
-            try{
-            CallableStatement myStmt = con.prepareCall("{call AddClient(?,?,?,?,?,?,?)}");
-            myStmt.setString(1,name);
-            myStmt.setString(2,nip);
-            myStmt.setString(3,phone_number);
-            myStmt.setString(4,email);
-            myStmt.setString(5,discount);
-            myStmt.setString(6,street);
-            myStmt.setString(7,city);
-            myStmt.execute();
-            } catch (SQLException ex) {
-                    Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else
-        {
-            JOptionPane.showMessageDialog(null,"Bledne dane.","Error", JOptionPane.ERROR_MESSAGE);
+        con = connect.getConnection();
+        String name = Name.getText();
+        String nip = Nip.getText();
+        String phone_number = PhoneNumber.getText();
+        String city = City.getText();
+        String discount = Discount.getText();
+        String email = Email.getText();
+        String street = Street.getText();
+        try{
+        CallableStatement myStmt = con.prepareCall("{call AddClient(?,?,?,?,?,?,?)}");
+        myStmt.setString(1,name);
+        myStmt.setString(2,nip);
+        myStmt.setString(3,phone_number);
+        myStmt.setString(4,email);
+        myStmt.setString(5,discount);
+        myStmt.setString(6,street);
+        myStmt.setString(7,city);
+        myStmt.execute();
+        } catch (SQLException ex) {
+                Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
         }
         end();
     }//GEN-LAST:event_AddActionPerformed

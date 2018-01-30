@@ -13,7 +13,6 @@ public class JDialogLogin extends javax.swing.JDialog {
         initComponents();
         connect = con;
         loggedEmployee = 0;
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
     
     public int ShowDialog()
